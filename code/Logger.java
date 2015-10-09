@@ -1,4 +1,4 @@
-package com.onebit.logger;
+package com.onebit.noteslite.utils;
 
 import android.os.Build;
 import android.util.Log;
@@ -11,19 +11,37 @@ import org.json.JSONObject;
  * Created by scijoker on 08.10.15.
  */
 public class Logger {
+    private static boolean DEBUG = true;
 
     public static void d(String tag, String arg) {
-        Log.d(tag, arg);
+        if (isDebugEnable()) {
+            Log.d(tag, arg);
+        }
     }
 
     public static void d(String logMsg) {
-        d(getCurrentClassName(), getCurrentMethodName() + "(): " + logMsg);
+        if (isDebugEnable()) {
+            d(getCurrentClassName(), getCurrentMethodName() + "(): " + logMsg);
+        }
+    }
+
+    public static void dd(String tag, JSONObject jsonObject) {
+        if (isDebugEnable()) {
+            try {
+                format(tag, jsonObject.toString(2));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public static void dd(String tag, Object source) {
+        if (!isDebugEnable()) {
+            return;
+        }
         if (containsJsonStr(source)) {
             try {
-                format(tag, new JSONObject(source.toString()).toString(2));
+                dd(tag, new JSONObject(source.toString()).toString(2));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -74,5 +92,13 @@ public class Logger {
             }
         }
         return true;
+    }
+
+    private static boolean isDebugEnable() {
+        return DEBUG;
+    }
+
+    public static void setEnable(boolean flag) {
+        Logger.DEBUG = flag;
     }
 }
