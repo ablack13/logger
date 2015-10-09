@@ -44,7 +44,7 @@ For change logs color: http://stackoverflow.com/questions/19933731/colored-logca
 License
 --------
 
-    Copyright 2015 A.Prayzner, Inc.
+    Copyright 2015 A.Prayzner
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
