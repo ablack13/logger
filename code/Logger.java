@@ -16,8 +16,12 @@ public class Logger {
         Log.d(tag, arg);
     }
 
+    public static void d(String logMsg) {
+        d(getCurrentClassName(), getCurrentMethodName() + "(): " + logMsg);
+    }
+
     public static void dd(String tag, Object source) {
-        if (isJSONValid(source)) {
+        if (containsJsonStr(source)) {
             try {
                 format(tag, new JSONObject(source.toString()).toString(2));
             } catch (JSONException e) {
@@ -26,6 +30,14 @@ public class Logger {
         } else {
             format(tag, source);
         }
+    }
+
+    private static String getSplitter(int length) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            builder.append("-");
+        }
+        return builder.toString();
     }
 
     private static void format(String tag, Object source) {
@@ -37,15 +49,19 @@ public class Logger {
         d(" ", " ");
     }
 
-    private static String getSplitter(int length) {
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < length; i++) {
-            builder.append("-");
-        }
-        return builder.toString();
+    private static String getCurrentMethodName() {
+        return Thread.currentThread().getStackTrace()[4].getMethodName();
     }
 
-    private static boolean isJSONValid(Object test) {
+    private static String getCurrentClassName() {
+        String className = Thread.currentThread().getStackTrace()[4].getClassName();
+
+        String[] temp = className.split("[\\.]");
+        className = temp[temp.length - 1];
+        return className;
+    }
+
+    private static boolean containsJsonStr(Object test) {
         try {
             new JSONObject(test.toString());
         } catch (JSONException ex) {
