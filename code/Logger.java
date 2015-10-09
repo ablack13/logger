@@ -1,4 +1,4 @@
-package com.onebit.noteslite.utils;
+package com.onebit.logger;
 
 import android.os.Build;
 import android.util.Log;
