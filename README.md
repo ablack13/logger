@@ -2,7 +2,7 @@
 Simple logger for Android with support sections and json representation in the original form (only working with DEBUG logs)
 
 <h3>Setup</h3>
-Copy Logger class to your project and fix package 
+Copy ```Logger.java``` from ```/code/``` folder	 to your project and fix package 
 
 <h3>Quick start:</h3>
 
