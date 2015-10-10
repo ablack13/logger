@@ -27,7 +27,7 @@ public class Logger {
 
     public static void dd(String tag, Object source) {
         if (isEnable()) {
-            Object o = containsJsonStr(source);
+            Object o = getJsonObjFromStr(source);
             if (o != null) {
                 try {
                     if (o instanceof JSONObject) {
@@ -78,7 +78,7 @@ public class Logger {
         return className;
     }
 
-    private static Object containsJsonStr(Object test) {
+    private static Object getJsonObjFromStr(Object test) {
         Object o = null;
         try {
             o = new JSONObject(test.toString());
