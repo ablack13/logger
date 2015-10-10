@@ -88,7 +88,7 @@ public class Logger {
                     o = new JSONArray(test);
                 }
             } catch (JSONException ex1) {
-                return false;
+                return null;
             }
         }
         return o;
